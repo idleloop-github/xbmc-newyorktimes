@@ -5,7 +5,7 @@ Watch videos from http://video.on.nytimes.com
 
 ### Contact
 
-idleloop@yahoo.com
+idleloop -at- yahoo.com
 
 ### Original author:
 

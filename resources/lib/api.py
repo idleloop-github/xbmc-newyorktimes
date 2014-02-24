@@ -26,8 +26,8 @@ def _url(path):
 def get_topics():
     '''Returns a list of (topic_name, url) of available topics'''
     html = BS(requests.get(BASE_URL).text)
-    menu = html.find('div', {'class': 'navigation clearfix'})
-    links = menu.findAll('a', href=lambda h: h.startswith('/video/landing/'))
+    menu = html.find('div', {'class': 'header-container'}) # 20140208 idleloop
+    links = menu.findAll('a', href=lambda h: h.startswith('/video/')) # 20140208 idleloop
     return [(a.text, _url(a['href'])) for a in links]
 
 
@@ -37,13 +37,16 @@ def get_sub_topics(topic_url):
     will be returned.
     '''
     html = BS(requests.get(topic_url).text)
-    menu = html.find('div', {'class': 'subCategories clearfix'})
+    # 20140208 idleloop:
+    menu = html.find('div', {'class': 'main wrapper clearfix'})
+    menu2 = menu.findAll('li', itemtype='http://schema.org/SiteNavigationElement')
+    links = [menu.find('a', href=lambda h: h.startswith('/video/')) for menu in menu2]
 
-    if menu.find('li', {'class': 'firstItem selected'}):
+    '''if menu.find('li', {'class': 'firstItem selected'}):
         # Viewing a sub-topic page, don't return sub topics again
         return []
-
-    links = menu.findAll('a')
+    '''
+    ###links = menu3.findAll('a')
     return [(a.text, _url(a['href'])) for a in links]
 
 
@@ -51,7 +54,12 @@ def get_videos(url):
     '''For a given topic url, returns a list of associated videos from the
     Brightcove API.
     '''
-    ref_id = url.split('/')[-2]
+    # 20140208 idleloop:
+    html = BS(requests.get(url).text)
+    menu = html.find('li', {'class': 'thumb-item show'})
+    link = menu.find('a', href=lambda h: h.startswith('/video/'))
+    ref_id = (link['href']).split('=')[-1]
+    ###
     brightcove = Brightcove(TOKEN)
     playlist = brightcove.find_playlist_by_reference_id(ref_id)
     return playlist.videos

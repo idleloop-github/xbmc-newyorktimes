@@ -19,7 +19,7 @@ plugin = Plugin()
 def show_topics():
     '''The main menu, shows available video topics'''
     items = [{
-        'label': name,
+        'label': name.replace('&#39;', "'"), # 20140208 idleloop
         'path': plugin.url_for('show_topic', url=url),
     } for name, url in api.get_topics()]
     return items
@@ -48,6 +48,7 @@ def update_url_for_rtmp(url):
     For brightcove urls, the playpath is after the '&'.
 
     '''
+    url=url.replace('_xl_','_xxl_') # 20140208 idleloop: bigger videos
     if url.startswith('rtmp'):
         return '%s playpath=%s' % (url, url.split('&', 1)[1])
     return url

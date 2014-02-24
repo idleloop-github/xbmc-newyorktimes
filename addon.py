@@ -11,6 +11,14 @@
 from xbmcswift2 import Plugin
 from resources.lib import api
 
+###
+#
+# 20140208 idleloop: bigger videos
+# settings
+import xbmcaddon
+settings = xbmcaddon.Addon(id='plugin.video.newyorktimes')
+#
+###
 
 plugin = Plugin()
 
@@ -31,7 +39,10 @@ def show_topic(url):
     as videos.
     '''
     videos = api.get_videos(url)
-    items = [item_from_video(v) for v in videos]
+    # 20140208 idleloop: bigger videos
+    XXL4HIRES = settings.getSetting("xxl4hires")
+
+    items = [item_from_video(v, XXL4HIRES) for v in videos]
 
     subtopics = [{
         'label': name,
@@ -41,27 +52,29 @@ def show_topic(url):
     return subtopics + items
 
 
-def update_url_for_rtmp(url):
+def update_url_for_rtmp(url, XXL4HIRES):
     '''Appends playpath option for an RTMP url. Other url types are
     returned unchanged.
 
     For brightcove urls, the playpath is after the '&'.
 
     '''
-    url=url.replace('_xl_','_xxl_') # 20140208 idleloop: bigger videos
+    # 20140208 idleloop: bigger videos
+    if XXL4HIRES == 'true': url=url.replace('_xl_','_xxl_')
+
     if url.startswith('rtmp'):
         return '%s playpath=%s' % (url, url.split('&', 1)[1])
     return url
 
 
-def item_from_video(video):
+def item_from_video(video, XXL4HIRES):
     '''Returns a dict suitable for passing to plugin.add_items from a
     brightcove api Video.
 
     '''
     item = {
         'label': video.name,
-        'path': update_url_for_rtmp(video.FLVURL),
+        'path': update_url_for_rtmp(video.FLVURL, XXL4HIRES),
         'info': info_from_video(video),
         'is_playable': True,
     }

@@ -13,7 +13,7 @@ from resources.lib import api
 
 ###
 #
-# 20140208 idleloop: bigger videos
+# bigger videos
 # settings
 import xbmcaddon
 settings = xbmcaddon.Addon(id='plugin.video.newyorktimes')
@@ -27,7 +27,7 @@ plugin = Plugin()
 def show_topics():
     '''The main menu, shows available video topics'''
     items = [{
-        'label': name.replace('&#39;', "'"), # 20140208 idleloop
+        'label': name.replace('&#39;', "'"), # Editors' Choice
         'path': plugin.url_for('show_topic', url=url),
     } for name, url in api.get_topics()]
     return items
@@ -39,7 +39,7 @@ def show_topic(url):
     as videos.
     '''
     videos = api.get_videos(url)
-    # 20140208 idleloop: bigger videos
+    # bigger videos
     XXL4HIRES = settings.getSetting("xxl4hires")
 
     items = [item_from_video(v, XXL4HIRES) for v in videos]
@@ -59,7 +59,7 @@ def update_url_for_rtmp(url, XXL4HIRES):
     For brightcove urls, the playpath is after the '&'.
 
     '''
-    # 20140208 idleloop: bigger videos
+    # bigger videos
     if XXL4HIRES == 'true': url=url.replace('_xl_','_xxl_')
 
     if url.startswith('rtmp'):

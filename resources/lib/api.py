@@ -10,6 +10,7 @@
 '''
 import urlparse
 import requests
+import re
 from BeautifulSoup import BeautifulSoup as BS
 from brightcove.api import Brightcove
 
@@ -26,9 +27,11 @@ def _url(path):
 def get_topics():
     '''Returns a list of (topic_name, url) of available topics'''
     html = BS(requests.get(BASE_URL).text)
-    menu = html.find('div', {'class': 'header-container'}) 
-    links = menu.findAll('a', href=lambda h: h.startswith('/video/')) 
-    return [(a.text, _url(a['href'])) for a in links]
+    menu = html.find('div', {'class': 'header-container'})
+    links = menu.findAll('a', href=lambda h: h.startswith('/video/'))
+    topics = [(a.text, _url(a['href'])) for a in links]
+    topics.insert( 0, ('Latest Videos', _url('/video/latest-video/')) )
+    return topics
 
 
 def get_sub_topics(topic_url):
@@ -53,10 +56,9 @@ def get_videos(url):
     Brightcove API.
     '''
     html = BS(requests.get(url).text)
-    menu = html.find('li', {'class': 'thumb-item show'})
+    menu = html.find('li', {'class': re.compile('thumb-item show .+')})
     link = menu.find('a', href=lambda h: h.startswith('/video/'))
     ref_id = (link['href']).split('=')[-1]
-    ###
     brightcove = Brightcove(TOKEN)
     playlist = brightcove.find_playlist_by_reference_id(ref_id)
     return playlist.videos

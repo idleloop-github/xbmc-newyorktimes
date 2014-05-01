@@ -6,6 +6,7 @@
     http://video.on.nytimes.com/
 
    :copyright: (c) 2012 by Jonathan Beluch
+   :modified on 2014 by idleloop
    :license: GPLv3, see LICENSE.txt for more details.
 '''
 from xbmcswift2 import Plugin
@@ -13,8 +14,7 @@ from resources.lib import api
 
 ###
 #
-# bigger videos
-# settings
+# bigger videos settings
 import xbmcaddon
 settings = xbmcaddon.Addon(id='plugin.video.newyorktimes')
 #
@@ -27,7 +27,7 @@ plugin = Plugin()
 def show_topics():
     '''The main menu, shows available video topics'''
     items = [{
-        'label': name.replace('&#39;', "'"), # Editors' Choice
+        'label': name.replace('&amp;', "&"),
         'path': plugin.url_for('show_topic', url=url),
     } for name, url in api.get_topics()]
     return items
@@ -39,9 +39,7 @@ def show_topic(url):
     as videos.
     '''
     videos = api.get_videos(url)
-    # bigger videos
     XXL4HIRES = settings.getSetting("xxl4hires")
-
     items = [item_from_video(v, XXL4HIRES) for v in videos]
 
     subtopics = [{
@@ -59,9 +57,8 @@ def update_url_for_rtmp(url, XXL4HIRES):
     For brightcove urls, the playpath is after the '&'.
 
     '''
-    # bigger videos
     if XXL4HIRES == 'true': url=url.replace('_xl_','_xxl_')
-
+    ###print "XXL4HIRES = " + XXL4HIRES + " url = " + url
     if url.startswith('rtmp'):
         return '%s playpath=%s' % (url, url.split('&', 1)[1])
     return url

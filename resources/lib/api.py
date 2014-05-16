@@ -6,6 +6,7 @@
     associated brightcove api for videos.
 
    :copyright: (c) 2012 by Jonathan Beluch
+   :modified on 2014 by idleloop
    :license: GPLv3, see LICENSE.txt for more details.
 '''
 import urlparse

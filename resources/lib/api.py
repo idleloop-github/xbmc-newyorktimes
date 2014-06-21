@@ -57,8 +57,9 @@ def get_videos(url):
     Brightcove API.
     '''
     html = BS(requests.get(url).text)
-    menu = html.find('a', {'class': 'thumb-holder'})
-    ref_id = (menu['href']).split('=')[-1]
+    menu = html.find('div', {'class': 'recent-episodes'})
+    link = menu.find('a', {'class': 'thumb-holder'})
+    ref_id = (link['href']).split('=')[-1]
     brightcove = Brightcove(TOKEN)
     playlist = brightcove.find_playlist_by_reference_id(ref_id)
     return playlist.videos

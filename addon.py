@@ -61,7 +61,7 @@ def update_url_for_rtmp(url, XXL4HIRES):
     '''
     # 201408: new renditions (video resolutions) have been added... and FLVURL is anchored to 3g resolution (?)
     #         maybe in the future renditions[] should be parsed and resolution selected by "encodingRate".
-    url = re.sub(r'^(.+_wg_16x9)_.+_.+_.+\.mp4$', r'\1_xl_bb_mm.mp4', url)
+    url = re.sub(r'^(.+_wg.*)_.+_.+_.+\.mp4$', r'\1_xl_bb_mm.mp4', url)
     if XXL4HIRES == 'true': 
         url=url.replace('_xl_bb_mm.mp4','_xxxl_hb_mm.mp4') 
     if url.startswith('rtmp'):

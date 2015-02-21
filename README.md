@@ -1,5 +1,5 @@
-New York Times Plugin for XBMC
-==============================
+New York Times Plugin for Kodi / xbmc
+=====================================
 
 Watch videos from http://video.on.nytimes.com
 

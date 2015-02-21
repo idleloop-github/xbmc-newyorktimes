@@ -1,4 +1,12 @@
-Version 1.5
+Version 2.0.0
+* Update addon to reflect website changes
+* navigation throu all available videos with a Next button
+* more resolution ranges available
+* addon is no longer dependent on external modules: portable to any kodi version.
+  modules packaged: xbmcswift2 & beautifulsoup (jbeluch), 
+  requests (kennethreitz), scrapertools & logger (core from pelisalacarta)
+
+Version 1.5.0
 * video urls are now always correctly extracted, given the resolution chosen
 
 Version 1.4.3 to 1.4.4

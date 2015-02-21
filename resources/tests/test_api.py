@@ -26,6 +26,6 @@ class APIITTests(unittest.TestCase):
     '''
 
     def test_get_videos(self):
-        url = 'http://www.nytimes.com/video/landing/world/1194811622205/index.html'
+        url = 'http://www.nytimes.com/video/world/'
         videos = api.get_videos(url)
-        self.assertTrue(len(videos) > 99)
+        self.assertTrue(len(videos) > 10)

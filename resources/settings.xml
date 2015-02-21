@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <settings>
-<setting id="xxl4hires" type="bool" label="HD videos" default="false"/>
+<setting id="resolution" type="enum" label="Video resolution" values="Medium (~480p)|High (720p)|HD (1080p)" default="0"/>
 </settings>

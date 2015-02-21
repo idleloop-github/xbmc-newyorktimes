@@ -3,16 +3,6 @@ New York Times Plugin for XBMC
 
 Watch videos from http://video.on.nytimes.com
 
-### Prerequisites for installation on XBMC 13 (Gotham)
-
-As this plugin depends on some other plugins from this plugin's original author and others, that were posted on the XBMC 11 (Eden) and 12 (Frodo) repository, you'll have to install them all manually.   
-The links are below: just uncompress them under your **.xbmc/addons** folder:
-
-* [xbmcswift2](http://mirrors.xbmc.org/addons/frodo/script.module.xbmcswift2/script.module.xbmcswift2-2.4.0.zip)
-* [requests](http://mirrors.xbmc.org/addons/frodo/script.module.requests/script.module.requests-2.3.0.zip)
-* [beautifulsoup](http://mirrors.xbmc.org/addons/frodo/script.module.beautifulsoup/script.module.beautifulsoup-3.2.1.zip)
-* [brightcove](http://mirrors.xbmc.org/addons/frodo/script.module.brightcove/script.module.brightcove-1.1.1.zip)
-
 ### Installation
 
 * [download zip](https://github.com/idleloop-github/xbmc-newyorktimes/archive/master.zip)
@@ -29,7 +19,16 @@ Distributed [under GPL 3](http://www.gnu.org/licenses/gpl-3.0.html)
 [idleloop](http://www.angelfire.com/ego2/idleloop/) -at- yahoo.com   
 BTC: 1GX726he5TNgnDuG4qG9zrM6CSN7uyga6F
 
-### Original author:
+### Prerequisites for installation
+
+None.
+From v 2.0.0, no third-party modules are required. As these modules were often no longer maintained or ported to new kodi versions repository, they're now included in the plugin itself:
+* [xbmcswift2](http://mirrors.xbmc.org/addons/frodo/script.module.xbmcswift2/script.module.xbmcswift2-2.4.0.zip)
+* [requests](http://mirrors.xbmc.org/addons/frodo/script.module.requests/script.module.requests-2.3.0.zip)
+* [beautifulsoup](http://mirrors.xbmc.org/addons/frodo/script.module.beautifulsoup/script.module.beautifulsoup-3.2.1.zip)
+* [core from pelisalacarta](http://blog.tvalacarta.info/plugin-xbmc/pelisalacarta/descargar/)
+
+### Original plugin author (until v1.2.1):
 
 web -at- jonathanbeluch.com  
 jbel on [http://forum.xbmc.org](http://forum.xbmc.org)

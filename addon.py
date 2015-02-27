@@ -9,13 +9,13 @@
    :modified on 2014, 2015 by idleloop
    :license: GPLv3, see LICENSE.txt for more details.
 '''
-from xbmcswift2 import Plugin
 from resources.lib import api
 
 # plugin settings
 import xbmcaddon
 settings = xbmcaddon.Addon(id='plugin.video.newyorktimes')
 
+from xbmcswift2 import Plugin
 plugin = Plugin()
 
 

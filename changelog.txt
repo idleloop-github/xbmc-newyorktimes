@@ -1,3 +1,7 @@
+Version 2.0.1
+* Code cleanup: lighter addon
+* no modules packaged as they're already ported to newer kodi versions
+
 Version 2.0.0
 * Update addon to reflect website changes
 * navigation throu all available videos with a Next button

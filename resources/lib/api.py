@@ -10,14 +10,14 @@
    :license: GPLv3, see LICENSE.txt for more details.
 '''
 import urlparse
-from resources.lib import requests
+import urllib2
 import re
-from resources.lib.beautifulsoup import BeautifulSoup as BS
-from core import scrapertools
-from core import logger
+import json
+from BeautifulSoup import BeautifulSoup as BS
 
 from xbmcswift2 import Plugin
 plugin = Plugin()
+
 
 BASE_URL        = 'http://www.nytimes.com/video/'
 NYT_URL_BASE    = 'http://www.nytimes.com/'
@@ -35,7 +35,7 @@ def _url(path):
 
 def get_topics():
     '''Returns a list of (topic_name, url) of available topics'''
-    html = BS(requests.get(BASE_URL).text)
+    html = BS(urllib2.urlopen(BASE_URL).read())
     menu = html.find('div', {'class': 'header-container'})
     links = menu.findAll('a', href=lambda h: h.startswith('/video/'))
     topics = [(a.text, _url(a['href'])) for a in links]
@@ -48,7 +48,7 @@ def get_sub_topics(topic_url):
     given topic page. If the provided url is a sub topic page, an empty list
     will be returned.
     '''
-    html = BS(requests.get(topic_url).text)
+    html = BS(urllib2.urlopen(topic_url).read())
     menu = html.find('div', {'class': 'main wrapper clearfix'})
     menu2 = menu.findAll('li', itemtype='http://schema.org/SiteNavigationElement')
     links = [menu3.find('a', href=lambda h: h.startswith('/video/')) for menu3 in menu2]
@@ -64,7 +64,7 @@ def get_videos(url, resolution_option, page=0):
     '''For a given topic url, returns a list of associated videos using the
     nyt REST API.
     '''
-    html = BS(requests.get(url).text)
+    html = BS(urllib2.urlopen(url).read())
     menu = html.find('div', {'class': 'recent-episodes'})
     link = menu.find('a', {'class': 'thumb-holder'})
     ref_id = (link['href']).split('=')[-1]
@@ -88,35 +88,16 @@ def find_playlist_by_reference_id(ref_id, resolution_option, page=0):
         items.append( item_from_video(json_object, resolution_option) )
     return items
 
+
 def obtain_json(url):
     # obtain json from url and scrape js from it
-    json_text = scrapertools.cache_page(url)
+    json_text = urllib2.urlopen(url).read()
     try:
         json_text = re.compile( r'^[^\{]+(.+)\);$', re.DOTALL ).findall(json_text)[0]
-        json_object = load_json(json_text)
+        json_object = json.loads(json_text)
     except:
         return []
     return json_object
-
-
-def load_json(data):
-    # callback to transform json string values to utf8
-    def to_utf8(dct):
-        rdct = {}
-        for k, v in dct.items() :
-            if isinstance(v, (str, unicode)) :
-                rdct[k] = v.encode('utf8', 'ignore')
-            else :
-                rdct[k] = v
-        return rdct
-    try :        
-        import json
-        json_data = json.loads(data, object_hook=to_utf8)
-        return json_data
-    except:
-        import sys
-        for line in sys.exc_info():
-            logger.error( "%s" % line ) 
 
 
 def item_from_video(video, resolution_option):

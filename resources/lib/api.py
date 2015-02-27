@@ -60,7 +60,7 @@ def get_sub_topics(topic_url):
     return [(a.text, _url(a['href'])) for a in links]
 
 
-def get_videos(url, resolution_option, page=0):
+def get_videos(url, resolution_option=0, page=0):
     '''For a given topic url, returns a list of associated videos using the
     nyt REST API.
     '''

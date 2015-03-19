@@ -36,7 +36,7 @@ def _url(path):
 def get_topics():
     '''Returns a list of (topic_name, url) of available topics'''
     html = BS(urllib2.urlopen(BASE_URL).read())
-    menu = html.find('div', {'class': 'header-container'})
+    menu = html.find('div', {'class': re.compile(r'header\-container *')})
     links = menu.findAll('a', href=lambda h: h.startswith('/video/'))
     topics = [(a.text, _url(a['href'])) for a in links]
     topics.insert( 0, ('Latest Videos', _url('/video/latest-video/')) )

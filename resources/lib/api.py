@@ -109,7 +109,7 @@ def item_from_video(video, resolution_option):
     try:
         for rendition in video["renditions"]:
             # select only the more compatible codecs:
-            if (rendition["video_codec"] != 'H264'):
+            if ( not re.match( 'h264', rendition["video_codec"], re.IGNORECASE ) ):
                 continue
             height=int(rendition["height"])
             if (resolution_option == '0'):

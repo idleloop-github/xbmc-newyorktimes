@@ -11,21 +11,17 @@ class APIITTests(unittest.TestCase):
         items = api.get_topics()
         self.assertTrue(len(items) > 10)  # currently 11
 
-    '''
-    20140501:
-    Subtopics aren't listed any more, even if they still exists on urls
     def test_get_sub_topics(self):
-        url = 'http://www.nytimes.com/video/world'
+        url = 'https://www.nytimes.com/video/science'
         items = api.get_sub_topics(url)
-        self.assertTrue(len(items) > 4)  # currently 5
+        self.assertTrue(len(items) > 0)  # currently 1
 
-        url = 'http://www.nytimes.com/video/americas'
+        url = 'https://www.nytimes.com/video/melissa-clark'
         items2 = api.get_sub_topics(url)
         # Ensure we don't re-parse sub topics when already on a sub topic page
         self.assertEqual(len(items2), 0)
-    '''
 
     def test_get_videos(self):
-        url = 'http://www.nytimes.com/video/world/'
-        videos = api.get_videos(url)
+        url = 'https://www.nytimes.com/video/world/'
+        videos = api.get_videos(url, 'International')
         self.assertTrue(len(videos) > 10)

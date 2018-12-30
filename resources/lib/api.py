@@ -78,6 +78,9 @@ def log(msg):
             msg.encode('utf-8', 'ignore')
         ))
         #), level=xbmc.LOGNOTICE) # https://forum.kodi.tv/showthread.php?tid=324570
+    except:
+        print( 'NewYorkTimes: %s' % (
+            msg.encode('utf-8', 'ignore') ))
 
 
 def get_topics():

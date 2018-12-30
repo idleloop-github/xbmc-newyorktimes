@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/idleloop-github/xbmc-newyorktimes.svg?branch=master)](https://travis-ci.org/idleloop-github/xbmc-newyorktimes)
+
 New York Times Plugin for Kodi / xbmc
 =====================================
 

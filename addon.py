@@ -10,8 +10,6 @@
    :license: GPLv3, see LICENSE.txt for more details.
 '''
 from resources.lib import api
-# //kodi.wiki/index.php?title=Add-on:Parsedom_for_xbmc_plugins
-from CommonFunctions import replaceHTMLCodes
 import xbmcgui
 
 # plugin settings

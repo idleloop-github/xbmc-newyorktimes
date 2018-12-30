@@ -13,8 +13,11 @@ import urlparse
 import urllib2
 import re
 import json
-# //kodi.wiki/index.php?title=Add-on:Parsedom_for_xbmc_plugins
-from CommonFunctions import parseDOM, stripTags, replaceHTMLCodes
+try:
+    # //kodi.wiki/index.php?title=Add-on:Parsedom_for_xbmc_plugins
+    from CommonFunctions import parseDOM, stripTags
+except:
+    from parsedom import parseDOM, stripTags
 import xbmc
 
 from xbmcswift2 import Plugin

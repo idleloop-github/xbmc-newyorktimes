@@ -13,6 +13,7 @@ import urlparse
 import urllib2
 import re
 import json
+from random import randint
 try:
     # //kodi.wiki/index.php?title=Add-on:Parsedom_for_xbmc_plugins
     from CommonFunctions import parseDOM, stripTags
@@ -58,7 +59,7 @@ def _get_html(url, retries=5):
             dialog = xbmcgui.Dialog()
             dialog.notification( 'NYT',
                 'waiting for remote server ...',
-                xbmcgui.NOTIFICATION_INFO, int(RETRY_TIME*2000) )
+                xbmcgui.NOTIFICATION_INFO, int(RETRY_TIME*5000) )
             retry_counter += retry_counter
             time.sleep(RETRY_TIME + randint(0, 2*retries))
             pass

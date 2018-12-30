@@ -1,8 +1,9 @@
-<addon id="plugin.video.newyorktimes" name="New York Times" provider-name="idleloop, Jonathan Beluch (jbel)" version="2.0.3">
+<addon id="plugin.video.newyorktimes" name="New York Times" provider-name="idleloop, forked from Jonathan Beluch (jbel)" version="2.1.0">
   <requires>
     <import addon="xbmc.python" version="2.1.0" />
-    <import addon="script.module.beautifulsoup" version="3.2.1" />
+    <import addon="script.module.parsedom" version="2.5.2" />
     <import addon="script.module.xbmcswift2" version="2.4.0" />
+    <import addon="script.common.plugin.cache" version="2.5.5" />
   </requires>
   <extension library="addon.py" point="xbmc.python.pluginsource">
     <provides>video</provides>
@@ -15,6 +16,6 @@
     <license>GNU GENERAL PUBLIC LICENSE. Version 3, 29 June 2007</license>
     <source>https://github.com/idleloop-github/xbmc-newyorktimes</source>
     <email>idleloop at yahoo dot com</email>
-    <disclaimer>Provided "as is". Original author: web at jonathanbeluch dot com</disclaimer>
+    <disclaimer>Provided "as is" - //github.com/idleloop-github/xbmc-newyorktimes - Original author: jonathanbeluch dot com.</disclaimer>
   </extension>
 </addon>

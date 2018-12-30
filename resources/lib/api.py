@@ -16,9 +16,10 @@ import json
 try:
     # //kodi.wiki/index.php?title=Add-on:Parsedom_for_xbmc_plugins
     from CommonFunctions import parseDOM, stripTags
+    import xbmc
+    import xbmcgui
 except:
     from parsedom import parseDOM, stripTags
-import xbmc
 
 from xbmcswift2 import Plugin
 plugin = Plugin()

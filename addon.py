@@ -102,10 +102,12 @@ def show_topic(url, page='0'):
         videos=subtopics+videos
 
     # paginated results:
-    videos.append({
-            'label':    'Next >>',
-            'path':     plugin.url_for( 'show_topic_nextpage', url=url, page=str(page+1) )
-        })
+    if description != 'New York':
+        # ('New York' section does not have direct correspondent json classification, and so, Next can't be calculated)
+        videos.append({
+                'label':    'Next >>',
+                'path':     plugin.url_for( 'show_topic_nextpage', url=url, page=str(page+1) )
+            })
 
     return videos
 

@@ -1,3 +1,6 @@
+Version 2.1.1
+* some NYT sections patched
+
 Version 2.1.0
 * patched site; speed up by using parseDOM instead of BeautifulSoup
 

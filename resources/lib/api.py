@@ -6,7 +6,7 @@
     associated brightcove api for videos.
 
    :copyright: (c) 2012 by Jonathan Beluch
-   :modified on 2014, 2015, 2018 by idleloop
+   :modified on 2014, 2015, 2018, 2019 by idleloop
    :license: GPLv3, see LICENSE.txt for more details.
 '''
 import urlparse
@@ -14,6 +14,7 @@ import urllib2
 import re
 import json
 from random import randint
+import time
 try:
     # //kodi.wiki/index.php?title=Add-on:Parsedom_for_xbmc_plugins
     from CommonFunctions import parseDOM, stripTags
@@ -54,7 +55,7 @@ def _get_html(url, retries=5):
             break
         except urllib2.HTTPError as ex:
             log('_get_html error: %s' % ex)
-            if (re.match(r'.+HTTP Error 301.+', str(ex))):
+            if (re.match(r'HTTP Error 4.+', str(ex))):
                 raise
             dialog = xbmcgui.Dialog()
             dialog.notification( 'NYT',
@@ -126,13 +127,21 @@ def get_videos(url, description, ref_id, resolution_option=0, page=0):
         html = _get_html( url )
         menu = parseDOM( html, 'div', attrs={'class': 'recent-episodes'} )
         links = parseDOM( menu, 'a', attrs={'class': 'thumb-holder'} , ret='href')
-        for i, link in enumerate( links ):
-            # videos can be classified in more than one category and the main one may not b the one we're searching for (description)
-            ref_id = link.split('=')[-1]
-            videos = find_playlist_by_reference_id(ref_id, description, resolution_option, page)
-            if videos != []:
-                # correct classification! (json contains Show display_name == description)
-                break
+        if description == 'New York':
+            # this section does not have direct correspondent json classification
+            # so it is directly extracted from html
+            videos = []
+            for i, link in enumerate( links ):
+                video_id = re.search( r'^/[^/]+/[^/]+/([^/]+)/.+', link ).group(1)
+                videos.append( find_video_by_video_id(video_id, resolution_option) )
+        else:
+            for i, link in enumerate( links ):
+                # videos can be classified in more than one category and the main one may not b the one we're searching for (description)
+                ref_id = link.split('=')[-1]
+                videos = find_playlist_by_reference_id(ref_id, description, resolution_option, page)
+                if videos != []:
+                    # correct classification! (json contains Show display_name == description)
+                    break
     else:
         # time not wasted examining various json urls, as we know that the received ref_id is good
         videos = find_playlist_by_reference_id(ref_id, description, resolution_option, page)
@@ -159,9 +168,21 @@ def find_playlist_by_reference_id(ref_id, description, resolution_option, page=0
     return items
 
 
+def find_video_by_video_id(video_id, resolution_option):
+    '''From a given video_id, returns the video data associated using the
+    nyt REST API.
+    '''
+    url = NYT_REST_API_URL + 'video/' + str(video_id) + NYT_REST_API["video"] + str(video_id)
+    json_object = obtain_json(url)
+    return item_from_video(json_object, resolution_option)
+
+
 def obtain_json(url, description=''):
     # obtain json from url and scrape js from it
     json_text = urllib2.urlopen(url).read()
+    # patching sections without direct correspondent in JSON data:
+    if description == 'Culture': description = 'Anatomy of a Scene'
+    if description == 'Style': description = 'T Fashion'
     if description != '' and description != LATEST_VIDEOS:
         if '"display_name":"' + description.encode('ascii', 'ignore') not in json_text:
             # this video id is classified in more than one category and the main one is not the one we're searching for (description)

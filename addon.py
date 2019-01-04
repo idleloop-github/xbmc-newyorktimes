@@ -20,6 +20,7 @@ from xbmcswift2 import Plugin
 plugin = Plugin()
 
 NYT_URL_BASE = 'https://www.nytimes.com/'
+LATEST_VIDEOS = 'Latest Videos'
 
 # persistent storage to store ref_id of representative videos for each NYT topic
 # https://kodi.wiki/view/Add-on:Common_plugin_cache
@@ -91,7 +92,7 @@ def show_topic(url, page='0'):
         page )
 
     # store ref_id representative of this url topic not to repeat unnecessary browsing
-    if description != '' and not description in global_items_ref_id:
+    if description != '' and description != LATEST_VIDEOS and not description in global_items_ref_id:
         global_items_ref_id_storage( description, ref_id )
 
     if (page==0):

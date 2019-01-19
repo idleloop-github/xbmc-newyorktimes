@@ -6,7 +6,7 @@
     http://video.on.nytimes.com/
 
    :copyright: (c) 2012 by Jonathan Beluch
-   :modified on 2014, 2015 by idleloop
+   :modified on 2014, 2015, 2019 by idleloop
    :license: GPLv3, see LICENSE.txt for more details.
 '''
 from resources.lib import api
@@ -79,6 +79,7 @@ def show_topic(url, page='0'):
         description = '' # subcategory
 
     global_items_ref_id = global_items_ref_id_storage()
+    global_items_ref_id[LATEST_VIDEOS] = '1194811622182'
 
     dialog = xbmcgui.Dialog()
     dialog.notification( 'Retrieving videos.',
@@ -92,7 +93,7 @@ def show_topic(url, page='0'):
         page )
 
     # store ref_id representative of this url topic not to repeat unnecessary browsing
-    if description != '' and description != LATEST_VIDEOS and not description in global_items_ref_id:
+    if description != '' and not description in global_items_ref_id:
         global_items_ref_id_storage( description, ref_id )
 
     if (page==0):

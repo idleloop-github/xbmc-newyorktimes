@@ -1,3 +1,6 @@
+Version 2.1.2
+* Latest Videos NYT section patched
+
 Version 2.1.1
 * some NYT sections patched
 

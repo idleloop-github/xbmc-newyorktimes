@@ -132,7 +132,7 @@ def get_videos(url, description, ref_id, resolution_option=0, page=0):
             # so it is directly extracted from html
             videos = []
             for i, link in enumerate( links ):
-                video_id = re.search( r'^/[^/]+/[^/]+/([^/]+)/.+', link ).group(1)
+                video_id = re.search( r'^.+?/(\d{10,})/.+', link ).group(1)
                 videos.append( find_video_by_video_id(video_id, resolution_option) )
         else:
             for i, link in enumerate( links ):

@@ -7,10 +7,14 @@ Watch videos from [https://www.nytimes.com/video](https://www.nytimes.com/video)
 
 ### Installation
 
-* [download zip](https://github.com/idleloop-github/xbmc-newyorktimes/releases/download/v2.1.1/plugin.video.newyorktimes-2.1.1.zip)
+* [download zip](https://github.com/idleloop-github/xbmc-newyorktimes/releases/download/v2.1.2/plugin.video.newyorktimes-2.1.2.zip)
 * Kodi: Add-ons / Download / .. / Install from zip file / & select this zip
 
 ### Version
+
+Version 2.1.2
+
+* Latest Videos NYT section patched
 
 Version 2.1.1
 
